@@ -11,3 +11,7 @@
 /backend/UrlShortnerAPI/Entities/obj
 /backend/UrlShortnerAPI/UrlShortnerAPI/bin/Debug/net8.0
 /backend/UrlShortnerAPI/UrlShortnerAPI/obj
+/backend/UrlShortnerAPI/BusinessLogic/bin/Debug/net10.0
+/backend/UrlShortnerAPI/Data/bin/Debug/net10.0
+/backend/UrlShortnerAPI/Entities/bin/Debug/net10.0
+/backend/UrlShortnerAPI/UrlShortnerAPI/bin/Debug/net10.0

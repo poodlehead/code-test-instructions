@@ -1,14 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Data.Data
 {
     public class ShortenedUrl
     {
+        [Key]
         public required string shortString { get; set; }
         public required string Url { get; set; }
     }
