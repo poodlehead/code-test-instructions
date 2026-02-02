@@ -1,4 +1,6 @@
 using BusinessLogic.DependencyInjection;
+using Data;
+using Microsoft.EntityFrameworkCore;
 using UrlShortnerAPI;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +19,9 @@ builder.Services
     .AddResultVisitorServices()
     .ConfigureJsonOptions()
     .AddBusinessLogicServices();
+builder.Services.AddDbContext<UrlShortnerContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 
 if (builder.Environment.IsDevelopment())
 {

@@ -12,9 +12,6 @@ FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["UrlShortnerAPI/UrlShortnerAPI.csproj", "UrlShortnerAPI/"]
-COPY ["BusinessLogic/BusinessLogic.csproj", "BusinessLogic/"]
-COPY ["Data/Data.csproj", "Data/"]
-COPY ["Entities/Entities.csproj", "Entities/"]
 RUN dotnet restore "./UrlShortnerAPI/UrlShortnerAPI.csproj"
 COPY . .
 WORKDIR "/src/UrlShortnerAPI"
@@ -30,3 +27,6 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "UrlShortnerAPI.dll"]
+
+volumes:
+  - sqlite-data:/app/data

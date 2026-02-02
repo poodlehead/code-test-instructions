@@ -3,15 +3,14 @@
 ################################################################################
 
 /backend/UrlShortnerAPI/.vs
-/backend/UrlShortnerAPI/BusinessLogic/bin/Debug/net8.0
 /backend/UrlShortnerAPI/BusinessLogic/obj
-/backend/UrlShortnerAPI/Data/bin/Debug/net8.0
 /backend/UrlShortnerAPI/Data/obj
-/backend/UrlShortnerAPI/Entities/bin/Debug/net8.0
 /backend/UrlShortnerAPI/Entities/obj
-/backend/UrlShortnerAPI/UrlShortnerAPI/bin/Debug/net8.0
 /backend/UrlShortnerAPI/UrlShortnerAPI/obj
-/backend/UrlShortnerAPI/BusinessLogic/bin/Debug/net10.0
-/backend/UrlShortnerAPI/Data/bin/Debug/net10.0
-/backend/UrlShortnerAPI/Entities/bin/Debug/net10.0
-/backend/UrlShortnerAPI/UrlShortnerAPI/bin/Debug/net10.0
+/backend/UrlShortnerAPI/BusinessLogic/bin
+/backend/UrlShortnerAPI/Data/bin
+/backend/UrlShortnerAPI/Entities/bin
+/backend/UrlShortnerAPI/UrlShortnerAPI/bin
+/backend/UrlShortnerAPI/bin
+/backend/UrlShortnerAPI/obj
+/backend/UrlShortnerAPI/UrlShortnerAPI/data

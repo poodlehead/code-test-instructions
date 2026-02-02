@@ -23,7 +23,7 @@ namespace UrlShortnerAPI
                 var result = await service.CreateUrlShortner(requestBody);
                 return result.Accept(urlShortnerCreateResultVisitor);
             })
-            .WithName("shorten")
+            .WithName("Shorten")
             .WithGroupName(UrlShortnerApi);
             
             app.MapGet("/{alias}", async Task<IResult> (
@@ -34,7 +34,7 @@ namespace UrlShortnerAPI
                 var result = await service.GetUrlShortner(alias);
                 return result.Accept(urlShortnerGetResultVisitor);
             })
-            .WithName("alias")
+            .WithName("GetAlias")
             .WithGroupName(UrlShortnerApi);
             
             app.MapDelete("/{alias}", async Task<IResult> (
@@ -45,7 +45,7 @@ namespace UrlShortnerAPI
                 var result = await service.DeleteUrlShortner(alias);
                 return result.Accept(urlDeleteVisitor);
             })
-            .WithName("alias")
+            .WithName("DeleteAlias")
             .WithGroupName(UrlShortnerApi);
             
             app.MapGet("/urls", async Task<IResult> (
@@ -55,7 +55,7 @@ namespace UrlShortnerAPI
                 var result = await service.GetAllUrls(app.Configuration.GetConnectionString("DefaultConnection"));
                 return result.Accept(urlGetAll);
             })
-            .WithName("alias")
+            .WithName("GetAllUrls")
             .WithGroupName(UrlShortnerApi);
             
 

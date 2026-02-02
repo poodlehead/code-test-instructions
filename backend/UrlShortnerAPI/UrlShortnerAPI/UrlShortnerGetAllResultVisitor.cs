@@ -6,7 +6,7 @@ namespace UrlShortnerAPI
     {
         public IResult Visit(SuccessUrlShortnerGetAllResult success)
         {
-            throw new NotImplementedException();
+            return TypedResults.Ok(success);
         }
     }
 }

@@ -1,0 +1,11 @@
+services:
+  urlshortnerapi:
+    image: ${DOCKER_REGISTRY-}urlshortnerapi
+    volumes:
+      - sqlite-data:/app/data
+    build:
+      context: .
+      dockerfile: UrlShortnerAPI/Dockerfile
+
+volumes:
+  sqlite-data:

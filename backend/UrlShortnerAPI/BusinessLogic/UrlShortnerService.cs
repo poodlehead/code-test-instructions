@@ -75,7 +75,7 @@ namespace BusinessLogic
             var result = UrlList.Select(x => new UrlShortenedDTO()
             {
                 fullUrl = x.Url,
-                shortUrl = baseUrl + x.shortString
+                shortUrl = x.shortString
             }).ToList();
             return new SuccessUrlShortnerGetAllResult(result);
         }
