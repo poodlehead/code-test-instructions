@@ -1,21 +1,35 @@
+import { ShortenRequest, ShortenResponse } from "@/types/url";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
-  try {
-    const body = await req.json();
+  try{
 
-    const res = await fetch(`${process.env.BACKEND_URL}/shorten`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    });
+  
+  const body: ShortenRequest = await req.json();
+  console.log("Received body of the request:", body);
+  console.log("Environment BACKEND_URL:", `${process.env.BACKEND_URL}shorten`);
+  const res = await fetch(`${process.env.BACKEND_URL}shorten`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "accept": "application/json",
+    },
+    body: JSON.stringify(body),
+  });
+  console.log("Response status from backend:", res.status);
+  if (!res.ok) {
+    const errorText = await res.text();
+    return NextResponse.json(
+      { error: errorText },
+      { status: res.status }
+    );
+  }
 
-    if (!res.ok) throw new Error("Failed to shorten URL");
+    
+    const data: ShortenResponse = await res.json();
+    console.log("Response data from backend:", data);
+    return NextResponse.json<ShortenResponse>(data);
 
-    const data = await res.json();
-    return NextResponse.json(data);
   } catch (error: any) {
     return NextResponse.json(
       { error: error.message },

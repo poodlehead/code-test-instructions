@@ -1,9 +1,8 @@
-import Image from "next/image";
+"use client";
+
+import { ShortenRequest, ShortenResponse } from "@/types/url";
 import { useState } from "react";
 
-interface ShortenResponse {
-  shortUrl?: string;
-}
 
 export default function Home() {
   const [url, setUrl] = useState("");
@@ -19,23 +18,28 @@ export default function Home() {
     setError(null);
     setResult(null);
 
+
     try {
+      const payload: ShortenRequest = {
+        fullUrl: url,
+        customAlias: alias,
+      };
       const res = await fetch("/api/shorten", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ 
-          fullUrl: url, 
-          customAlias: alias 
-        }),
+        body: JSON.stringify(payload),
       });
+
+      console.log("Response status:", res.status);
 
       if (!res.ok) {
         throw new Error("Failed to shorten URL");
       }
 
       const data = await res.json();
+      console.log("Response data:", data);
       setResult(data);
     } catch (error: any) {
       setError(error.message);
@@ -82,16 +86,16 @@ export default function Home() {
             <p className="text-red-600 mt-4">Error: {error}</p>
           )}
 
-          {result && result.shortUrl && (
+          {result && result.alias && (
             <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left mt-4">
               <p className="text-green-600">Shortened URL:</p>
               <a
-                href={result.shortUrl}
+                href={result.alias}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-600 underline"
               >
-                {result.shortUrl}
+                {result.alias}
               </a>
             </div>
           )}
