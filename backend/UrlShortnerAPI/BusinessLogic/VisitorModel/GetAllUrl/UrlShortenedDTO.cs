@@ -8,6 +8,7 @@ namespace BusinessLogic.VisitorModel.GetAllUrl
 {
     public class UrlShortenedDTO
     {
+        public string? Alias { get; set; }
         public string fullUrl { get; set; }
         public string shortUrl { get; set; }
     }

@@ -30,6 +30,7 @@ namespace BusinessLogic
             {
                 shortString =  shortenedUrl,
                 Url = request.fullUrl,
+                Alias = request.customAlias
             };
             try
             {
@@ -79,6 +80,7 @@ namespace BusinessLogic
             List<ShortenedUrl> UrlList = await _context.ShortenedUrls.ToListAsync();
             var result = UrlList.Select(x => new UrlShortenedDTO()
             {
+                Alias = x.Alias,
                 fullUrl = x.Url,
                 shortUrl = frontEndUrl + x.shortString
             }).ToList();
