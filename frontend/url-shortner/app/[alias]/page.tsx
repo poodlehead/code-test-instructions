@@ -7,13 +7,16 @@ interface PageProps {
 }
 
 export default async function AliasPage({ params }: PageProps) {
-
-const res = await fetch(`${process.env.BACKEND_URL}/${params.alias}`,
+  
+  const {alias} = await params;
+  console.log("Environment BACKEND_URL:", `${process.env.BACKEND_URL}/${alias}`);
+  const res = await fetch(`${process.env.BACKEND_URL}/${alias}`,
     {
         redirect: "manual",
         cache: "no-store",
     });
-  const data = await res.json();
+  console.log("Response status from backend:", res.status);
+  
 
   if (res.status === 302) {
     const location = res.headers.get("Location");
@@ -22,7 +25,7 @@ const res = await fetch(`${process.env.BACKEND_URL}/${params.alias}`,
     }
   }
   else {
-    return <div>Error: {data.error}</div>;
+    return <div>Error: {res.statusText}</div>;
   }
 
   return notFound();

@@ -32,14 +32,11 @@ export default function Home() {
         body: JSON.stringify(payload),
       });
 
-      console.log("Response status:", res.status);
-
       if (!res.ok) {
         throw new Error("Failed to shorten URL");
       }
 
       const data = await res.json();
-      console.log("Response data:", data);
       setResult(data);
     } catch (error: any) {
       setError(error.message);
