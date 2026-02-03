@@ -20,7 +20,8 @@ namespace UrlShortnerAPI
                 [FromServices] IUrlShortnerService service,
                 [FromServices] IUrlShortnerCreateResultVisitor<IResult> urlShortnerCreateResultVisitor) =>
             {
-                var result = await service.CreateUrlShortner(requestBody);
+                string? frontEndUrl = app.Configuration.GetRequiredSection("FrontEndUrl").Value?.ToString();
+                var result = await service.CreateUrlShortner(requestBody, frontEndUrl);
                 return result.Accept(urlShortnerCreateResultVisitor);
             })
             .WithName("Shorten")
@@ -52,7 +53,7 @@ namespace UrlShortnerAPI
                 [FromServices] IUrlShortnerService service,
                 [FromServices] IUrlShortnerGetAllResultVisitor<IResult> urlGetAll) =>
             {
-                var result = await service.GetAllUrls(app.Configuration.GetConnectionString("DefaultConnection"));
+                var result = await service.GetAllUrls();
                 return result.Accept(urlGetAll);
             })
             .WithName("GetAllUrls")

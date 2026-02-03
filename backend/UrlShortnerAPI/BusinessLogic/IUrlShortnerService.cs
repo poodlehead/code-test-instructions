@@ -8,9 +8,9 @@ namespace BusinessLogic
 {
     public interface IUrlShortnerService
     {
-        Task<UrlShortnerCreateResult> CreateUrlShortner(UrlShortnerRequest request);
+        Task<UrlShortnerCreateResult> CreateUrlShortner(UrlShortnerRequest request, string? frontEndUrl);
         Task<UrlShortnerGetResult> GetUrlShortner(string alias);
         Task<UrlDeleteResult> DeleteUrlShortner(string alias);
-        Task<UrlShortnerGetAllResult> GetAllUrls(string baseUrl);
+        Task<UrlShortnerGetAllResult> GetAllUrls();
     }
 }

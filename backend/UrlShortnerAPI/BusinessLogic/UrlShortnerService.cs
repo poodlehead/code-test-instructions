@@ -1,11 +1,9 @@
-﻿using BusinessLogic.VisitorModel;
-using BusinessLogic.VisitorModel.CreateUrl;
+﻿using BusinessLogic.VisitorModel.CreateUrl;
 using BusinessLogic.VisitorModel.DeleteUrl;
 using BusinessLogic.VisitorModel.GetAllUrl;
 using BusinessLogic.VisitorModel.GetUrl;
 using Data;
 using Data.Data;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using UrlShortnerAPI;
 
@@ -19,12 +17,18 @@ namespace BusinessLogic
         {
             _context = context;
         }
-        public async Task<UrlShortnerCreateResult> CreateUrlShortner(UrlShortnerRequest request)
+        public async Task<UrlShortnerCreateResult> CreateUrlShortner(UrlShortnerRequest request, string? frontEndUrl)
         {
-            string shortenedUrl = string.IsNullOrEmpty(request.customAlias) ? Guid.NewGuid().ToString("N") : request.customAlias;
-            var data = new Data.Data.ShortenedUrl
+            if (string.IsNullOrWhiteSpace(frontEndUrl))
             {
-                shortString = shortenedUrl,
+                return new FailedShortnerCreateResult("Front End Url not been set in appSettings.json");
+            }
+            ;
+            string shortenedUrl = string.IsNullOrEmpty(request.customAlias) ? Guid.NewGuid().ToString("N") : request.customAlias;
+            shortenedUrl = shortenedUrl.Insert(0, frontEndUrl);
+            ShortenedUrl data = new ShortenedUrl
+            {
+                shortString =  shortenedUrl,
                 Url = request.fullUrl,
             };
             try
@@ -69,7 +73,7 @@ namespace BusinessLogic
             }
         }
 
-        public async Task<UrlShortnerGetAllResult> GetAllUrls(string baseUrl)
+        public async Task<UrlShortnerGetAllResult> GetAllUrls()
         {
             List<ShortenedUrl> UrlList = await _context.ShortenedUrls.ToListAsync();
             var result = UrlList.Select(x => new UrlShortenedDTO()
