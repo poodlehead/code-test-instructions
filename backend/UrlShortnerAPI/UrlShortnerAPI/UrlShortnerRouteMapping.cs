@@ -15,12 +15,13 @@ namespace UrlShortnerAPI
 
         internal static WebApplication MapUrlShortnerMapperRoutes(this WebApplication app)
         {
+            string? frontEndUrl = app.Configuration.GetRequiredSection("FrontEndUrl").Value?.ToString();
+
             app.MapPost("/shorten", async Task<IResult> (
                 [FromBody] UrlShortnerRequest requestBody,
                 [FromServices] IUrlShortnerService service,
                 [FromServices] IUrlShortnerCreateResultVisitor<IResult> urlShortnerCreateResultVisitor) =>
             {
-                string? frontEndUrl = app.Configuration.GetRequiredSection("FrontEndUrl").Value?.ToString();
                 var result = await service.CreateUrlShortner(requestBody, frontEndUrl);
                 return result.Accept(urlShortnerCreateResultVisitor);
             })
@@ -53,13 +54,11 @@ namespace UrlShortnerAPI
                 [FromServices] IUrlShortnerService service,
                 [FromServices] IUrlShortnerGetAllResultVisitor<IResult> urlGetAll) =>
             {
-                var result = await service.GetAllUrls();
+                var result = await service.GetAllUrls(frontEndUrl);
                 return result.Accept(urlGetAll);
             })
             .WithName("GetAllUrls")
             .WithGroupName(UrlShortnerApi);
-            
-
 
             return app;
         }

@@ -11,6 +11,6 @@ namespace BusinessLogic
         Task<UrlShortnerCreateResult> CreateUrlShortner(UrlShortnerRequest request, string? frontEndUrl);
         Task<UrlShortnerGetResult> GetUrlShortner(string alias);
         Task<UrlDeleteResult> DeleteUrlShortner(string alias);
-        Task<UrlShortnerGetAllResult> GetAllUrls();
+        Task<UrlShortnerGetAllResult> GetAllUrls(string? frontEndUrl);
     }
 }

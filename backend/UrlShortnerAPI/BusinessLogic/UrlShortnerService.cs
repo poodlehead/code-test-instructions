@@ -25,7 +25,7 @@ namespace BusinessLogic
             }
             ;
             string shortenedUrl = string.IsNullOrEmpty(request.customAlias) ? Guid.NewGuid().ToString("N") : request.customAlias;
-            shortenedUrl = shortenedUrl.Insert(0, frontEndUrl);
+            
             ShortenedUrl data = new ShortenedUrl
             {
                 shortString =  shortenedUrl,
@@ -35,6 +35,7 @@ namespace BusinessLogic
             {
                 _context.ShortenedUrls.Add(data);
                 await _context.SaveChangesAsync();
+                shortenedUrl = shortenedUrl.Insert(0, frontEndUrl);
                 return new SuccessUrlShortnerCreateResult(new ShortenedReturnUrl { Alias = shortenedUrl });
             }
             catch
@@ -73,13 +74,13 @@ namespace BusinessLogic
             }
         }
 
-        public async Task<UrlShortnerGetAllResult> GetAllUrls()
+        public async Task<UrlShortnerGetAllResult> GetAllUrls(string? frontEndUrl)
         {
             List<ShortenedUrl> UrlList = await _context.ShortenedUrls.ToListAsync();
             var result = UrlList.Select(x => new UrlShortenedDTO()
             {
                 fullUrl = x.Url,
-                shortUrl = x.shortString
+                shortUrl = frontEndUrl + x.shortString
             }).ToList();
             return new SuccessUrlShortnerGetAllResult(result);
         }
