@@ -28,6 +28,8 @@ if (builder.Environment.IsDevelopment())
     builder.ConfigureSwaggerServices();
 }
 
+
+
 var app = builder.Build();
 app.ConfigureErrorResponses();
 app.MapUrlShortnerMapperRoutes();
@@ -38,6 +40,16 @@ if (app.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
     app.ConfigureSwagger();
 }
+
+var applyMigrations = app.Configuration.GetValue<bool>("ApplyMigrations");
+
+if (applyMigrations)
+{
+    using var scope = app.Services.CreateScope();
+    var db = scope.ServiceProvider.GetRequiredService<UrlShortnerContext>();
+    db.Database.Migrate();
+}
+
 
 app.UseAuthorization();
 
