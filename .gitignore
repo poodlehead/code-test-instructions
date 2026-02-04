@@ -15,3 +15,5 @@
 /backend/UrlShortnerAPI/obj
 /backend/UrlShortnerAPI/UrlShortnerAPI/data
 /.vs
+/backend/BusinessLogic.Tests/bin
+/backend/BusinessLogic.Tests/obj
