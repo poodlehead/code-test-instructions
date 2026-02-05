@@ -1,18 +1,11 @@
-using System;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
-using NUnit;
-using NUnit.Framework;
 using Data;
 using Data.Data;
 using BusinessLogic.VisitorModel.CreateUrl;
 using BusinessLogic.VisitorModel.GetUrl;
 using BusinessLogic.VisitorModel.GetAllUrl;
 using BusinessLogic.VisitorModel.DeleteUrl;
-using BusinessLogic;
 using UrlShortnerAPI;
 
 namespace BusinessLogic.Tests
